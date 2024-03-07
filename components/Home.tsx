@@ -20,7 +20,6 @@ function Login( navigation: any ): React.JSX.Element {
     email: '',
     password: '',
   });
-  // const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
   return (
     <SafeAreaView style={{ flex: 1}}>
@@ -36,11 +35,9 @@ function Login( navigation: any ): React.JSX.Element {
           </View>
           </View>
           <ImageBackground source={require("../assets/bg.jpg")} resizeMode="cover" style={styles.image}>
-          <View style={styles.bgcontainer}> 
-                {/* <View style={{ backgroundColor: "#e9edc9" }}> */}
+          <View style={styles.bgcontainer}>                
                 <View style={styles.formcontainer}>
-                  <Text style={styles.title}>WELCOME TO T-PORT</Text>
-                  {/* <Text style={styles.subtitle}>Get Access to your account and more</Text> */}
+                  <Text style={styles.title}>WELCOME TO T-PORT</Text>                  
                   <View style={styles.form}>
                       <View style={styles.input}>
 
@@ -73,41 +70,30 @@ const styles = StyleSheet.create(
     btnCRegister:{
       marginVertical:5
     },
-    image: {
-      // flex: 1,
-      // justifyContent: 'center',
-      // opacity: 1
-    },
+    image: {  },
     container: {
-      // padding: 10,
       flex: 1,
     },
     headercontainer:{},
     bgcontainer: {},
     formcontainer:{
-      // margin:23,
-      // backgroundColor: "#f4f2f1",
       borderRadius:25,
       marginHorizontal:18,
-      marginVertical:60
+      marginVertical:200
     },
-    header: {
-      // marginVertical: 30,
+    header: {      
       marginVertical: 10,
     },
     headerImg: {
       width: 170,
       height: 120,
       alignSelf: 'center',
-      // marginBottom: 36
       marginTop: 40
     },
     title: {
       fontSize: 27,
       fontWeight: '700',
       color: '#d90429',
-      // marginBottom: 26,
-      // marginTop: 26,
       marginVertical:30,
       textAlign: 'center',
       letterSpacing:1
@@ -129,16 +115,14 @@ const styles = StyleSheet.create(
       color: '#222',
       marginBottom: 8
     },
-    inputControl: {
-      // height: 44,
+    inputControl: {      
       borderWidth: 1,
       backgroundColor: '#fff',
       paddingHorizontal: 18,      
       borderRadius:12,
       fontSize: 15,
       fontWeight: '500',
-      color: '#222',
-      // borderColor: '#001524'
+      color: '#222',      
       borderColor: '#d3d3d3'
     },
     form: {
@@ -158,10 +142,7 @@ const styles = StyleSheet.create(
     },
     btn: {      
       borderRadius: 8,
-      borderWidth: 1,
-      // borderBottomWidth: 1,
-      // borderRightWidth: 1,      
-    //   borderColor: '#075eec',
+      borderWidth: 1,      
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
@@ -172,8 +153,7 @@ const styles = StyleSheet.create(
         backgroundColor: '#0053a3',
     },
     btncolorlightblue: {
-        backgroundColor: '#007bff',
-        // borderColor: '#007bff',
+        backgroundColor: '#007bff',        
     },
     btncolorred: {
         backgroundColor: '#ee3944',

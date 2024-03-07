@@ -35,11 +35,9 @@ function Login( navigation: any ): React.JSX.Element {
           </View>
           </View>
           <ImageBackground source={require("../assets/bg.jpg")} resizeMode="cover" style={styles.image}>
-          <View style={styles.bgcontainer}> 
-                {/* <View style={{ backgroundColor: "#e9edc9" }}> */}
+          <View style={styles.bgcontainer}>                 
                 <View style={styles.formcontainer}>
-                  <Text style={styles.title}>FORGOT PASSWORD</Text>
-                  {/* <Text style={styles.subtitle}>Get Access to your account and more</Text> */}
+                  <Text style={styles.title}>FORGOT PASSWORD</Text>                  
                   <View style={styles.form}>
                       <View style={styles.input}>
                       <TextInput 
@@ -64,7 +62,7 @@ function Login( navigation: any ): React.JSX.Element {
                                 navigation.navigate("Home");
                                 // Alert.alert('Successfully logged in!');
                               }else{
-                                Alert.alert('Please Enter User Id and Password !');                                
+                                Alert.alert('Please Enter User Id !');                                
                               }
                               
                           }}>
@@ -103,41 +101,31 @@ const styles = StyleSheet.create(
     btnCRegister:{
       marginVertical:5
     },
-    image: {
-      // flex: 1,
-      // justifyContent: 'center',
-      // opacity: 1
-    },
+    image: {  },
     container: {
-      // padding: 10,
       flex: 1,
     },
     headercontainer:{},
     bgcontainer: {},
     formcontainer:{
-      // margin:23,
       backgroundColor: "#f4f2f1",
       borderRadius:25,
       marginHorizontal:18,
-      marginVertical:60
+      marginVertical:120
     },
     header: {
-      // marginVertical: 30,
       marginVertical: 10,
     },
     headerImg: {
       width: 170,
       height: 120,
       alignSelf: 'center',
-      // marginBottom: 36
       marginTop: 40
     },
     title: {
       fontSize: 27,
       fontWeight: '700',
       color: '#d90429',
-      // marginBottom: 26,
-      // marginTop: 26,
       marginVertical:30,
       textAlign: 'center',
       letterSpacing:1
@@ -160,7 +148,6 @@ const styles = StyleSheet.create(
       marginBottom: 8
     },
     inputControl: {
-      // height: 44,
       borderWidth: 1,
       backgroundColor: '#fff',
       paddingHorizontal: 18,      
@@ -168,7 +155,6 @@ const styles = StyleSheet.create(
       fontSize: 15,
       fontWeight: '500',
       color: '#222',
-      // borderColor: '#001524'
       borderColor: '#d3d3d3'
     },
     form: {
@@ -189,9 +175,6 @@ const styles = StyleSheet.create(
     btn: {      
       borderRadius: 8,
       borderWidth: 1,
-      // borderBottomWidth: 1,
-      // borderRightWidth: 1,      
-    //   borderColor: '#075eec',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
@@ -203,7 +186,6 @@ const styles = StyleSheet.create(
     },
     btncolorlightblue: {
         backgroundColor: '#007bff',
-        // borderColor: '#007bff',
     },
     btncolorred: {
         backgroundColor: '#ee3944',
