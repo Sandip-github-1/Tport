@@ -49,11 +49,6 @@ const App = () => {
           </View>
       </ScrollView>
     </SafeAreaView>    
-    // <View>
-    // <Background>
-      
-    // </Background>
-    // </View>
   )
 }
 
