@@ -1,19 +1,21 @@
 import { View, Text, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
-import Login from './components/Login'
+
 import Background from './components/Background'
 
 //Navigation 
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator} from "@react-navigation/native-stack"
+
+// Screens
 import Home from './components/Home'
 import ForgotPassword from './components/ForgotPassword'
+import Login from './components/Login'
 
-
-//screens
 export type RootStackParamList = {
-  Home: undefined;
-  Login: { productId: string}
+  Home: { userId: string};
+  ForgotPassword: { passId: string};
+  Login: { userId: string}
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -30,16 +32,23 @@ const App = () => {
                 name='Home'
                 component={Home}
                 options={{
-                  title: "Trending Products"
+                  title: "Home"
+                }}
+                />
+                <Stack.Screen 
+                name='ForgotPassword'
+                component={ForgotPassword}
+                options={{
+                  title: "Forgot Password"
                 }}
                 />
                 <Stack.Screen 
                 name='Login'
                 component={Login}
                 options={{
-                  title: "Products"
+                  title: "Login Page"
                 }}
-                />
+                />                
 
               </Stack.Navigator>
             </NavigationContainer>
