@@ -15,7 +15,13 @@ import {
   ActivityIndicator
 } from 'react-native';
 
-function Login( navigation: any ): React.JSX.Element {
+// Navigations
+import {NativeStackScreenProps} from "@react-navigation/native-stack"
+// Check type safety
+import {RootStackParamList} from '../App'
+type Homeprops = NativeStackScreenProps<RootStackParamList,'Login'>
+
+function Login( {navigation}: Homeprops ): React.JSX.Element {
   const [form, setForm]=useState({
     email: '',
     password: '',
@@ -67,15 +73,14 @@ function Login( navigation: any ): React.JSX.Element {
                           <TouchableOpacity
                           onPress={() => {
                               // handle onPress
-                              if(form.email && form.password != ''){
-                                navigation.navigate("Home");
-                                // Alert.alert('Successfully logged in!');
+                              if(form.email && form.password != '') {                                
+                                navigation.navigate("Home", {userId: "20"})
+                                // Alert.alert('Successfully logged in!');                                
                               }else{
                                 Alert.alert('Please Enter User Id and Password !');                                
-                              }
-                              
+                              }                              
                           }}>
-                              <View style={[styles.btn, styles.btncolorblue]}>
+                              <View style={[styles.btn, styles.bgcolorblue]}>
                               <Text style={styles.btnText}>LOGIN</Text>
                               </View>
                           </TouchableOpacity>
@@ -96,7 +101,7 @@ function Login( navigation: any ): React.JSX.Element {
                               // <ActivityIndicator size="large" /> 
                                Alert.alert('Coming soon!');
                           }}>
-                              <View style={[styles.btn, styles.btncolorred, styles.btnTRegister]}>
+                              <View style={[styles.btn, styles.bgcolorred]}>
                               <Text style={styles.btnText}>Transporter Register</Text>
                               </View>
                           </TouchableOpacity>
@@ -105,7 +110,7 @@ function Login( navigation: any ): React.JSX.Element {
                               // handle onPress
                               Alert.alert('Coming soon!');
                           }}>
-                              <View style={[styles.btn, styles.btncolorlightblue, styles.btnCRegister]}>
+                              <View style={[styles.btn, styles.bgcolorlightblue]}>
                               <Text style={styles.btnText}>Customer Register</Text>
                               </View>
                           </TouchableOpacity>
@@ -205,16 +210,17 @@ const styles = StyleSheet.create(
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      marginVertical:5,
       paddingVertical: 10,
       paddingHorizontal: 20,
     },
-    btncolorblue: {
+    bgcolorblue: {
         backgroundColor: '#0053a3',
     },
-    btncolorlightblue: {
+    bgcolorlightblue: {
         backgroundColor: '#007bff',        
     },
-    btncolorred: {
+    bgcolorred: {
         backgroundColor: '#ee3944',
     },
     btnText : {
