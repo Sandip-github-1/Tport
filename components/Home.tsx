@@ -14,8 +14,17 @@ import {
   ImageBackground,
   ActivityIndicator
 } from 'react-native';
+import MainManu from './MainManu';
 
-function Login( navigation: any ): React.JSX.Element {
+// Navigations
+import {NativeStackScreenProps} from "@react-navigation/native-stack"
+
+// Check type safety
+import {RootStackParamList} from '../App'
+
+type Homeprops = NativeStackScreenProps<RootStackParamList,'Home'>
+
+function Home( navigation: any ): React.JSX.Element {
   const [form, setForm]=useState({
     email: '',
     password: '',
@@ -35,24 +44,10 @@ function Login( navigation: any ): React.JSX.Element {
           </View>
           </View>
           <ImageBackground source={require("../assets/bg.jpg")} resizeMode="cover" style={styles.image}>
-          <View style={styles.bgcontainer}>                
+          <View style={styles.bgcontainer}>
+          <Text style={styles.title}>WELCOME TO T-PORT</Text>
                 <View style={styles.formcontainer}>
-                  <Text style={styles.title}>WELCOME TO T-PORT</Text>                  
-                  <View style={styles.form}>
-                      <View style={styles.input}>
-
-                      </View>
-                      <View style={styles.input}>
-                          
-                      </View>
-                      <View style={styles.formAction}>
-
-                      </View>
-
-                      <View style={styles.formAction}>
-                          
-                      </View>
-                  </View>
+                  <MainManu />
               </View>
           </View>    
           </ImageBackground>
@@ -64,12 +59,6 @@ function Login( navigation: any ): React.JSX.Element {
 
 const styles = StyleSheet.create(
   {
-    btnTRegister:{
-      marginVertical:5
-    },
-    btnCRegister:{
-      marginVertical:5
-    },
     image: {  },
     container: {
       flex: 1,
@@ -77,9 +66,11 @@ const styles = StyleSheet.create(
     headercontainer:{},
     bgcontainer: {},
     formcontainer:{
-      borderRadius:25,
-      marginHorizontal:18,
-      marginVertical:200
+      // borderRadius:25,
+      // marginHorizontal:18,
+      flex:1,
+      alignContent: 'center',
+      marginVertical:10
     },
     header: {      
       marginVertical: 10,
@@ -97,72 +88,7 @@ const styles = StyleSheet.create(
       marginVertical:30,
       textAlign: 'center',
       letterSpacing:1
-    },
-    subtitle: {
-      fontSize: 15,
-      fontWeight: '500',
-      color: '#929292',
-      marginBottom: 6,
-      textAlign: 'center'
-    },
-    input: {
-      marginBottom: 16,
-      paddingHorizontal: 15
-    },
-    inputLabel: {
-      fontSize: 17,
-      fontWeight: '600',
-      color: '#222',
-      marginBottom: 8
-    },
-    inputControl: {      
-      borderWidth: 1,
-      backgroundColor: '#fff',
-      paddingHorizontal: 18,      
-      borderRadius:12,
-      fontSize: 15,
-      fontWeight: '500',
-      color: '#222',      
-      borderColor: '#d3d3d3'
-    },
-    form: {
-      marginBottom: 24,
-      flex: 1,
-    },
-    formAction: {
-      marginVertical: 6,
-      paddingHorizontal: 15
-    },
-    formFooter: {
-      fontSize: 17,
-      fontWeight:'600',
-      color: '#222',
-      textAlign: 'center',
-      letterSpacing: 0.15,
-    },
-    btn: {      
-      borderRadius: 8,
-      borderWidth: 1,      
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-    },
-    btncolorblue: {
-        backgroundColor: '#0053a3',
-    },
-    btncolorlightblue: {
-        backgroundColor: '#007bff',        
-    },
-    btncolorred: {
-        backgroundColor: '#ee3944',
-    },
-    btnText : {
-      fontSize: 18,
-      fontWeight: '600',
-      color: '#fff'
     }
   });
 
-export default Login;
+export default Home;
