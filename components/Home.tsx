@@ -12,7 +12,8 @@ import {
   useColorScheme,
   ScrollView,
   ImageBackground,
-  ActivityIndicator
+  ActivityIndicator,
+  Button
 } from 'react-native';
 import MainManu from './MainManu';
 
@@ -22,13 +23,19 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack"
 // Check type safety
 import {RootStackParamList} from '../App'
 
+import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+import { useNavigation } from '@react-navigation/native';
+
 type Homeprops = NativeStackScreenProps<RootStackParamList,'Home'>
 
-function Home( navigation: any ): React.JSX.Element {
+function Home({route}: Homeprops): React.JSX.Element {
+  // function Home({navigation}: Homeprops): React.JSX.Element {
   const [form, setForm]=useState({
     email: '',
     password: '',
   });
+  const {userId} = route.params
+  const navigation =  useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   return (
     <SafeAreaView style={{ flex: 1}}>
@@ -44,11 +51,21 @@ function Home( navigation: any ): React.JSX.Element {
           </View>
           </View>
           <ImageBackground source={require("../assets/bg.jpg")} resizeMode="cover" style={styles.image}>
-          <View style={styles.bgcontainer}>
-          <Text style={styles.title}>WELCOME TO T-PORT</Text>
-                <View style={styles.formcontainer}>
+          <View style={styles.bgcontainer}>          
+          <Text style={styles.title}>WELCOME TO T-PORT {userId} </Text>
+          <Button
+          title='Log Out'
+          onPress={() => {           
+            if(userId != '' && userId != undefined) {           
+              navigation.navigate("Login", {loginId: "3"});
+            }else{
+              Alert.alert('Please Enter User Id and Password !');
+            }
+            }}            
+            />
+            <View style={styles.formcontainer}>
                   <MainManu />
-              </View>
+            </View>
           </View>    
           </ImageBackground>
         </View>
@@ -60,6 +77,24 @@ function Home( navigation: any ): React.JSX.Element {
 const styles = StyleSheet.create(
   {
     image: {  },
+    btn: {      
+      borderRadius: 8,
+      borderWidth: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical:5,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+    },
+    bgcolorblue: {
+        backgroundColor: '#0053a3',
+    },
+    btnText : {
+      fontSize: 18,
+      fontWeight: '600',
+      color: '#fff'
+    },
     container: {
       flex: 1,
     },

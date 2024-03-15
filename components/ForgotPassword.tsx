@@ -15,7 +15,17 @@ import {
   ActivityIndicator
 } from 'react-native';
 
-function Login( navigation: any ): React.JSX.Element {
+// Navigations
+import {NativeStackScreenProps} from "@react-navigation/native-stack"
+
+// Check type safety
+import {RootStackParamList} from '../App'
+
+import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+
+type ForgotPassprops = NativeStackScreenProps<RootStackParamList,'ForgotPassword'>
+
+function ForgotPassword( {navigation}: ForgotPassprops ): React.JSX.Element {
   const [form, setForm]=useState({
     email: '',
     password: '',
@@ -58,9 +68,9 @@ function Login( navigation: any ): React.JSX.Element {
                       <TouchableOpacity
                           onPress={() => {
                               // handle onPress
-                              if(form.email && form.password != ''){
-                                navigation.navigate("Home");
-                                // Alert.alert('Successfully logged in!');
+                              if(form.email != ''){
+                                // navigation.navigate("Home", {userId: "20"});
+                                 Alert.alert('OTP will send soon!');
                               }else{
                                 Alert.alert('Please Enter User Id !');                                
                               }
@@ -77,7 +87,8 @@ function Login( navigation: any ): React.JSX.Element {
                           style={{ marginVertical: 15}}
                           onPress={() => {
                               // handle onPress
-                              Alert.alert('Coming soon!');
+                              navigation.navigate("Login",{loginId:"1"});
+                              // Alert.alert('Coming soon!');
                           }}>
                               <Text style={styles.formFooter}>Back to Login
                               </Text>
@@ -197,4 +208,4 @@ const styles = StyleSheet.create(
     }
   });
 
-export default Login;
+export default ForgotPassword;
