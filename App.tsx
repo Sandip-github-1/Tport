@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
+import type {PropsWithChildren} from 'react'
 
-import Background from './components/Background'
 
 //Navigation 
 import { NavigationContainer } from "@react-navigation/native"
@@ -12,53 +12,47 @@ import Home from './components/Home'
 import ForgotPassword from './components/ForgotPassword'
 import Login from './components/Login'
 
+// Type checking
 export type RootStackParamList = {
   Home: { userId: string};
   ForgotPassword: { passId: string};
-  Login: { userId: string}
+  Login: { loginId: string}
 };
-
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const App = () => {
   return (
-    
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff"}}>
-      <ScrollView>
-          <View>            
-            <NavigationContainer>
-              <Stack.Navigator initialRouteName='Home'>
-                <Stack.Screen 
-                name='Home'
-                component={Home}
-                options={{
-                  title: "Home"
-                }}
-                />
-                <Stack.Screen 
-                name='ForgotPassword'
-                component={ForgotPassword}
-                options={{
-                  title: "Forgot Password"
-                }}
-                />
-                <Stack.Screen 
-                name='Login'
-                component={Login}
-                options={{
-                  title: "Login Page"
-                }}
-                />                
 
-              </Stack.Navigator>
-            </NavigationContainer>
-            {/* <Login /> */}
-            <Home />
-            {/* <ForgotPassword /> */}
-          </View>
-      </ScrollView>
-    </SafeAreaView>    
-  )
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen 
+            name='Login'
+            component={Login}
+            options={{
+              // title: "",
+              headerShown: false
+            }}
+            
+            />
+            <Stack.Screen 
+            name='Home'
+            component={Home}
+            options={{
+              // title: "Test"
+              headerShown: false
+            }}
+            />
+            <Stack.Screen 
+            name='ForgotPassword'
+            component={ForgotPassword}
+            options={{
+              // title: "Test"
+              headerShown: false
+            }}
+            />            
+          </Stack.Navigator>          
+        </NavigationContainer>
+  );
 }
 
 export default App
