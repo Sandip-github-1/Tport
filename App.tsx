@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native'
+
 import React from 'react'
 import type {PropsWithChildren} from 'react'
 
@@ -12,9 +12,9 @@ import Home from './components/Home'
 import ForgotPassword from './components/ForgotPassword'
 import Login from './components/Login'
 
-// Type checking
+// Type checking the navigator
 export type RootStackParamList = {
-  Home: { userId: string};
+  Home: { userData : any};
   ForgotPassword: { passId: string};
   Login: { loginId: string}
 };
@@ -32,25 +32,26 @@ const App = () => {
               // title: "",
               headerShown: false
             }}
-            
             />
+
             <Stack.Screen 
             name='Home'
             component={Home}
             options={{
-              // title: "Test"
+              // title: ""
               headerShown: false
             }}
             />
+
             <Stack.Screen 
             name='ForgotPassword'
             component={ForgotPassword}
             options={{
-              // title: "Test"
+              // title: ""
               headerShown: false
             }}
-            />            
-          </Stack.Navigator>          
+            /> 
+          </Stack.Navigator>
         </NavigationContainer>
   );
 }
