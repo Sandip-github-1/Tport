@@ -22,6 +22,7 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import {RootStackParamList} from '../App'
 
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+import ContactUs from './ContactUs';
 
 type ForgotPassprops = NativeStackScreenProps<RootStackParamList,'ForgotPassword'>
 
@@ -98,6 +99,7 @@ function ForgotPassword( {navigation}: ForgotPassprops ): React.JSX.Element {
               </View>
           </View>    
           </ImageBackground>
+          <ContactUs />
         </View>
     </ScrollView>
   </SafeAreaView>

@@ -24,18 +24,20 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack"
 import {RootStackParamList} from '../App'
 
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
+import ContactUs from './ContactUs';
 
 type Homeprops = NativeStackScreenProps<RootStackParamList,'Home'>
 
-function Home({route}: Homeprops): React.JSX.Element {
+function Home({navigation, route}: Homeprops): React.JSX.Element {
   // function Home({navigation}: Homeprops): React.JSX.Element {
   const [form, setForm]=useState({
     email: '',
     password: '',
   });
-  const {userId} = route.params
-  const navigation =  useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+  //const {userData} = route.params
+  console.log(route.params);
+  
 
   return (
     <SafeAreaView style={{ flex: 1}}>
@@ -52,21 +54,12 @@ function Home({route}: Homeprops): React.JSX.Element {
           </View>
           <ImageBackground source={require("../assets/bg.jpg")} resizeMode="cover" style={styles.image}>
           <View style={styles.bgcontainer}>          
-          <Text style={styles.title}>WELCOME TO T-PORT {userId} </Text>
-          <Button
-          title='Log Out'
-          onPress={() => {           
-            if(userId != '' && userId != undefined) {           
-              navigation.navigate("Login", {loginId: "3"});
-            }else{
-              Alert.alert('Please Enter User Id and Password !');
-            }
-            }}            
-            />
+          <Text style={styles.title}>WELCOME TO T-PORT  {route.params.userData.name}</Text>
             <View style={styles.formcontainer}>
                   <MainManu />
             </View>
-          </View>    
+          </View>
+          <ContactUs />
           </ImageBackground>
         </View>
     </ScrollView>
@@ -101,8 +94,6 @@ const styles = StyleSheet.create(
     headercontainer:{},
     bgcontainer: {},
     formcontainer:{
-      // borderRadius:25,
-      // marginHorizontal:18,
       flex:1,
       alignContent: 'center',
       marginVertical:10
