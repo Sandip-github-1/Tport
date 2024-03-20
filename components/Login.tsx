@@ -19,6 +19,8 @@ import {
 import {NativeStackScreenProps} from "@react-navigation/native-stack"
 // Check type safety
 import {RootStackParamList} from '../App'
+import ContactUs from './ContactUs';
+import { LOGIN_URL } from './Constants/constant';
 type Loginprops = NativeStackScreenProps<RootStackParamList,'Login'>
 
 function Login( {navigation}: Loginprops ): React.JSX.Element {
@@ -27,128 +29,165 @@ function Login( {navigation}: Loginprops ): React.JSX.Element {
     password: '',
   });
 
-  const saveLoginData = async(email:string,password:string) =>{
-    // <ActivityIndicator size="large" /> 
-    const url = "http://tport.in/tportweb/restport/loginaction";
-    const data = {loginid: email, pwd: password}
-    let response ;
-        try {
-        let result = await fetch(url,{
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify(data) 
-        });
-        response = await result.json();
-        
-        if (response.Result === 'OK'){
-          navigation.navigate("Home", {userId: response.Record.tid});
-        }
-        else{      
-          Alert.alert(response.Msg);
-        }
-        } catch (error) {
-        console.error(error);    
+// Function to handle user login
+const loginUser = async (email: string, password: string) => {
+  try {
+    const userData = await authenticateUser(email, password);    
+    if (userData) {
+      let userObj = {
+        name : userData.usrnme,
+        tokenId : userData.tid,
       }
+      navigateToHome(userObj);
+    } else {
+      displayLoginError();
+    }
+  } catch (error) {
+    handleLoginError(error);
   }
+};
+
+// Function to authenticate user credentials
+const authenticateUser = async (loginid: string, pwd: string) => {
+  const credentials = { loginid, pwd };
+  
+  const response = await sendLoginRequest(credentials);
+  
+  if (response.Result === 'OK') {
+    return response.Record;
+  } else {
+    return null;
+  }
+};
+
+// Function to send login request to server
+const sendLoginRequest = async (credentials: { loginid: string; pwd: string }) => {
+  try {
+    const response = await fetch(LOGIN_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    });
+    return await response.json();
+  } catch (error) {
+    throw new Error('Failed to connect to the server.');
+  }
+};
+
+// Function to navigate to the home screen
+const navigateToHome = (userObj: any) => {
+  navigation.navigate('Home', { userData: userObj });
+};
+
+// Function to display login error
+const displayLoginError = () => {
+  Alert.alert('Login failed. Please check your credentials.');
+};
+
+// Function to handle login errors
+const handleLoginError = (error: any) => {
+  console.error('Login error:', error.message);
+  Alert.alert('An unexpected error occurred. Please try again later.');
+};
+
 
   return (
     <SafeAreaView style={{ flex: 1}}>
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.headercontainer}>
-          <View style={styles.header}>
-            <Image 
-              source={require("../assets/logo.jpg")}
-              style={styles.headerImg}
-              alt= "Logo"
-            />
-          </View>
+            <View style={styles.header}>
+              <Image 
+                source={require("../assets/logo.jpg")}
+                style={styles.headerImg}
+                alt= "Logo"
+              />
+            </View>
           </View>
           <ImageBackground source={require("../assets/bg.jpg")} resizeMode="cover" style={styles.image}>
-          <View style={styles.bgcontainer}>                 
-                <View style={styles.formcontainer}>
-                  <Text style={styles.title}>LOGIN</Text>                
-                  <View style={styles.form}>
-                      <View style={styles.input}>
-                          <TextInput 
-                          autoCapitalize="none"
-                          autoCorrect={false}
-                          keyboardType="email-address"
-                          style={styles.inputControl}
-                          placeholder="User Id"
-                          placeholderTextColor="#6b7280"
-                          value={form.email}
-                          onChangeText={email => setForm({...form,email,})}
-                          />
-                      </View>
-                      <View style={styles.input}>
-                          <TextInput 
-                          secureTextEntry
-                          style={styles.inputControl}
-                          placeholder="Password"
-                          placeholderTextColor="#6b7280"
-                          value={form.password}
-                          onChangeText={
-                            password => setForm({...form,password,})
-                          }
-                          />
-                      </View>
-                      <View style={styles.formAction}>
-                          <TouchableOpacity
-                          onPress={() => {
-                              // handle onPress                              
-                              if(form.email && form.password != '') { 
-                                // <ActivityIndicator size="large" /> 
-                                saveLoginData(form.email,form.password); 
-                              }else{
-                                Alert.alert('Please Enter User Id and Password !');
+            <View style={styles.bgcontainer}>                 
+                  <View style={styles.formcontainer}>
+                    <Text style={styles.title}>LOGIN</Text>                
+                      <View style={styles.form}>
+                          <View style={styles.input}>
+                              <TextInput 
+                              autoCapitalize="none"
+                              autoCorrect={false}
+                              keyboardType="email-address"
+                              style={styles.inputControl}
+                              placeholder="User Id"
+                              placeholderTextColor="#6b7280"
+                              value={form.email}
+                              onChangeText={email => setForm({...form,email,})}
+                              />
+                          </View>
+                          <View style={styles.input}>
+                              <TextInput 
+                              secureTextEntry
+                              style={styles.inputControl}
+                              placeholder="Password"
+                              placeholderTextColor="#6b7280"
+                              value={form.password}
+                              onChangeText={
+                                password => setForm({...form,password,})
                               }
-                          }}>
-                              <View style={[styles.btn, styles.bgcolorblue]}>
-                              <Text style={styles.btnText}>LOGIN</Text>
-                              </View>
-                          </TouchableOpacity>
-                      </View>
-                          <TouchableOpacity
-                          style={{ marginVertical: 15}}
-                          onPress={() => {
-                              // handle onPress                              
-                              navigation.navigate("ForgotPassword", {passId: "20"});
-                          }}>
-                              <Text style={styles.formFooter}>Forgot Login Password
-                              </Text>
-                          </TouchableOpacity>
-                      <View style={styles.formAction}>
-                          <TouchableOpacity
-                          onPress={() => {
-                              // handle onPress
-                              // <ActivityIndicator size="large" /> 
-                               Alert.alert('Releasing soon!');
-                          }}>
-                              <View style={[styles.btn, styles.bgcolorred]}>
-                              <Text style={styles.btnText}>Transporter Register</Text>
-                              </View>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                          onPress={() => {
-                              // handle onPress
-                              Alert.alert('Releasing soon!');
-                          }}>
-                              <View style={[styles.btn, styles.bgcolorlightblue]}>
-                              <Text style={styles.btnText}>Customer Register</Text>
-                              </View>
-                          </TouchableOpacity>
-                      </View>
+                              />
+                          </View>
+                          <View style={styles.formAction}>
+                              <TouchableOpacity
+                              onPress={() => {
+                                  // handle onPress
+                                  if(form.email && form.password != '') {                                 
+                                    loginUser(form.email,form.password); 
+                                  }else{
+                                    Alert.alert('Please Enter User Id and Password !');
+                                  }
+                              }}>
+                                  <View style={[styles.btn, styles.bgcolorblue]}>
+                                  <Text style={styles.btnText}>LOGIN</Text>
+                                  </View>
+                              </TouchableOpacity>
+                          </View>
+                              <TouchableOpacity
+                              style={{ marginVertical: 15}}
+                              onPress={() => {
+                                  // handle onPress                              
+                                  navigation.navigate("ForgotPassword", {passId: "20"});
+                              }}>
+                                  <Text style={styles.formFooter}>Forgot Login Password
+                                  </Text>
+                              </TouchableOpacity>
+                          <View style={styles.formAction}>
+                              <TouchableOpacity
+                              onPress={() => {
+                                  // handle onPress                              
+                                  Alert.alert('Releasing soon!');
+                              }}>
+                                  <View style={[styles.btn, styles.bgcolorred]}>
+                                  <Text style={styles.btnText}>Transporter Register</Text>
+                                  </View>
+                              </TouchableOpacity>
+                              <TouchableOpacity
+                              onPress={() => {
+                                  // handle onPress
+                                  Alert.alert('Releasing soon!');
+                              }}>
+                                  <View style={[styles.btn, styles.bgcolorlightblue]}>
+                                  <Text style={styles.btnText}>Customer Register</Text>
+                                  </View>
+                              </TouchableOpacity>
+                          </View>
+                      </View>                  
                   </View>
-              </View>
-          </View>
-          </ImageBackground>
-        </View>
+                  <ContactUs />
+            </View>
+          </ImageBackground>          
+        </View>        
     </ScrollView>
-  </SafeAreaView>
+    </SafeAreaView>
   );
 }
 
@@ -164,10 +203,13 @@ const styles = StyleSheet.create(
     container: {
       flex: 1,
     },
-    headercontainer:{},
+    headercontainer:{
+      backgroundColor: '#ffffff'
+    },
     bgcontainer: {},
     formcontainer:{
-      backgroundColor: "#f4f2f1",
+      // backgroundColor: "#f7ede2",
+      backgroundColor: 'rgb(251, 250, 248)',
       borderRadius:25,
       marginHorizontal:18,
       marginVertical:60
@@ -210,11 +252,12 @@ const styles = StyleSheet.create(
       borderWidth: 1,
       backgroundColor: '#fff',
       paddingHorizontal: 18,      
-      borderRadius:12,
+      borderRadius:8,
       fontSize: 15,
       fontWeight: '500',
       color: '#222',
-      borderColor: '#d3d3d3'
+      borderColor: '#d3d3d3',
+      elevation: 8,
     },
     form: {
       marginBottom: 24,
@@ -232,8 +275,7 @@ const styles = StyleSheet.create(
       letterSpacing: 0.15,
     },
     btn: {      
-      borderRadius: 8,
-      borderWidth: 1,
+      borderRadius: 8,      
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
@@ -252,9 +294,9 @@ const styles = StyleSheet.create(
     },
     btnText : {
       fontSize: 18,
-      fontWeight: '600',
+      fontWeight: '500',
       color: '#fff'
-    }
+    }  
   });
 
 export default Login;
