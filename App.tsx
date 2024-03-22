@@ -12,47 +12,44 @@ import Home from './components/Home'
 import ForgotPassword from './components/ForgotPassword'
 import Login from './components/Login'
 
+
 // Type checking the navigator
 export type RootStackParamList = {
   Home: { userData : any};
   ForgotPassword: { passId: string};
-  Login: { loginId: string}
+  Login: { loginId: string};
 };
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const App = () => {
   return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{            
+            headerShown: false,
+          }}
+        />
 
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen 
-            name='Login'
-            component={Login}
-            options={{
-              // title: "",
-              headerShown: false
-            }}
-            />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{            
+            headerShown: false,
+          }}
+        />
 
-            <Stack.Screen 
-            name='Home'
-            component={Home}
-            options={{
-              // title: ""
-              headerShown: false
-            }}
-            />
-
-            <Stack.Screen 
-            name='ForgotPassword'
-            component={ForgotPassword}
-            options={{
-              // title: ""
-              headerShown: false
-            }}
-            /> 
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Screen
+          name="ForgotPassword"
+          component={ForgotPassword}
+          options={{            
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
