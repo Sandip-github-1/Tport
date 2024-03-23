@@ -26,6 +26,8 @@ import {RootStackParamList} from '../App';
 import ContactUs from './ContactUs';
 import Logout from './Logout';
 import PreventBack from './PreventBack';
+import styles from './Style/GlobalStyle';
+import Header from './Header';
 
 type Homeprops = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -43,15 +45,7 @@ function Home({navigation, route}: Homeprops): React.JSX.Element {
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.headercontainer}>
-            <View style={styles.header}>
-              <Image
-                source={require('../assets/logo.jpg')}
-                style={styles.headerImg}
-                alt="Logo"
-              />
-            </View>
-          </View>
+          <Header />
           <ImageBackground
             source={require('../assets/bg.jpg')}
             resizeMode="cover"
@@ -65,68 +59,16 @@ function Home({navigation, route}: Homeprops): React.JSX.Element {
                 <MainManu />
                 <Logout onLogout={handleLogout} />
               </View>
-            </View>
-            <ContactUs />
+            </View>            
             <View>
               <Text style={styles.title}>@2024 Tport</Text>
             </View>
           </ImageBackground>
         </View>
       </ScrollView>
+      <ContactUs />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {},
-  btn: {
-    borderRadius: 8,
-    borderWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  bgcolorblue: {
-    backgroundColor: '#0053a3',
-  },
-  btnText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
-  },
-  container: {
-    flex: 1,
-  },
-  headercontainer: {
-    backgroundColor: '#ffffff',
-  },
-  bgcontainer: {},
-  formcontainer: {
-    flex: 1,
-    alignContent: 'center',
-    marginVertical: 10,
-  },
-  header: {
-    marginVertical: 10,
-  },
-  headerImg: {
-    width: 170,
-    height: 120,
-    alignSelf: 'center',
-    marginTop: 40,
-  },
-  title: {
-    fontSize: 27,
-    fontWeight: '700',
-    color: '#ffff',
-    marginVertical: 30,
-    textAlign: 'center',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-  },
-});
 
 export default Home;

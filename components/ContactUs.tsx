@@ -1,5 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import styles from './Style/GlobalStyle'
 
 const ContactUs = () => {
   return (
@@ -10,7 +11,7 @@ const ContactUs = () => {
           style={styles.bgImg}
           alt="Logo"
         />
-        <Text style={styles.btnText}>Contact Us</Text>
+        <Text style={styles.btnCText}>Contact Us</Text>
       </View>
     </View>
   );
@@ -18,39 +19,3 @@ const ContactUs = () => {
 
 export default ContactUs;
 
-const styles = StyleSheet.create({
-  bgImg: {
-    width: 40,
-    height: 40,
-    transform: [
-      {
-        rotate: '-180deg',
-      },
-    ],
-    top: 40,
-    left: 24,
-    position: 'relative',
-  },
-  btnText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
-    // zIndex: 3,
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    marginTop: 53,
-  },
-  bgColorContact: {
-    flex: 1,
-    bottom: 15,
-    right: 40,
-    position: 'absolute',
-    backgroundColor: '#38ecc5',
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignContent: 'center',
-    height: 80,
-  },
-});

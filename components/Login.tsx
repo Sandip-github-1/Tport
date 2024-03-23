@@ -21,6 +21,9 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
 import ContactUs from './ContactUs';
 import {LOGIN_URL} from './Constants/constant';
+import styles from './Style/GlobalStyle';
+import Header from './Header';
+
 type Loginprops = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 function Login({navigation}: Loginprops): React.JSX.Element {
@@ -29,6 +32,7 @@ function Login({navigation}: Loginprops): React.JSX.Element {
     password: '',
   });
 
+  // const styles = require('./Style/GlobalStyle');
   // Function to handle user login
   const loginUser = async (email: string, password: string) => {
     try {
@@ -78,15 +82,7 @@ function Login({navigation}: Loginprops): React.JSX.Element {
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.headercontainer}>
-            <View style={styles.header}>
-              <Image
-                source={require('../assets/logo.jpg')}
-                style={styles.headerImg}
-                alt="Logo"
-              />
-            </View>
-          </View>
+          <Header />
           <ImageBackground
             source={require('../assets/bg.jpg')}
             resizeMode="cover"
@@ -161,120 +157,14 @@ function Login({navigation}: Loginprops): React.JSX.Element {
                     </TouchableOpacity>
                   </View>
                 </View>
-              </View>
-              <ContactUs />
+              </View>              
             </View>
           </ImageBackground>
         </View>
       </ScrollView>
+      <ContactUs />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  btnTRegister: {
-    marginVertical: 5,
-  },
-  btnCRegister: {
-    marginVertical: 5,
-  },
-  image: {},
-  container: {
-    flex: 1,
-  },
-  headercontainer: {
-    backgroundColor: '#ffffff',
-  },
-  bgcontainer: {},
-  formcontainer: {
-    backgroundColor: 'rgb(251, 250, 248)',
-    borderRadius: 25,
-    marginHorizontal: 18,
-    marginVertical: 60,
-  },
-  header: {
-    marginVertical: 10,
-  },
-  headerImg: {
-    width: 170,
-    height: 120,
-    alignSelf: 'center',
-    marginTop: 40,
-  },
-  title: {
-    fontSize: 27,
-    fontWeight: '700',
-    color: '#ef233c',
-    marginVertical: 30,
-    textAlign: 'center',
-    letterSpacing: 1,
-  },
-  subtitle: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#929292',
-    marginBottom: 6,
-    textAlign: 'center',
-  },
-  input: {
-    marginBottom: 16,
-    paddingHorizontal: 15,
-  },
-  inputLabel: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: '#222',
-    marginBottom: 8,
-  },
-  inputControl: {
-    borderWidth: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 18,
-    borderRadius: 8,
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#222',
-    borderColor: '#d3d3d3',
-    elevation: 8,
-  },
-  form: {
-    marginBottom: 24,
-    flex: 1,
-  },
-  formAction: {
-    marginVertical: 6,
-    paddingHorizontal: 15,
-  },
-  formFooter: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: '#222',
-    textAlign: 'center',
-    letterSpacing: 0.15,
-  },
-  btn: {
-    borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  bgcolorblue: {
-    backgroundColor: '#0053a3',
-  },
-  bgcolorlightblue: {
-    backgroundColor: '#007bff',
-  },
-  bgcolorred: {
-    backgroundColor: '#ee3944',
-  },
-  btnText: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#fff',
-  },
-});
 
 export default Login;
